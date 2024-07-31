@@ -4,6 +4,7 @@
   "description": "Certainly! Here's a detailed README template for your project:",
   "main": "index.js",
   "scripts": {
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
