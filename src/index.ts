@@ -3,16 +3,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { StorageFactory } from './StorageFactory';
 
-const accessKeyId= "REMOVED"
-const secretAccessKey= "REMOVED"
-const region="eu-north-1"
-const bucket = "REMOVED"
+
+// Load configurations from environment variables
+const accessKeyId = process.env.AWS_ACCESS_KEY_ID || '';
+const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || '';
+const region = process.env.AWS_REGION || '';
+const bucket = process.env.AWS_BUCKET || '';
 
 const cloudinaryConfig = {
-  cloud_name: 'dnlqkbz0n',
-  api_key: '729962789145329',
-  api_secret: 'xtNmis1y3P1uaL0WwC-W5m2zc70',
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
+  api_key: process.env.CLOUDINARY_API_KEY || '',
+  api_secret: process.env.CLOUDINARY_API_SECRET || '',
 };
+
 
 const s3Config = {
   accessKeyId: accessKeyId,
@@ -23,10 +26,9 @@ const s3Config = {
 };
 
 const cloudinaryProvider = StorageFactory.createProvider('cloudinary', cloudinaryConfig);
-// const s3Provider = StorageFactory.createProvider('s3', s3Config);
+const s3Provider = StorageFactory.createProvider('s3', s3Config);
 
-// // Define fileBuffer as a Buffer object or any other type that represents the file data
-// const fileBuffer = Buffer.from('test.png');
+
 // Read the actual image file into a buffer
 const filePath = path.join(__dirname, 'test.png');
 const fileBuffer = fs.readFileSync(filePath);
@@ -36,23 +38,22 @@ console.log(fileBuffer, "sdfnjbfdvbfd");
 // Now you can use either provider with the same interface
 (async () => {
   // upload
-  // const resp = await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
-  // const resp = await cloudinaryProvider.download('example.png', {});
-  // const resp = await cloudinaryProvider.list({});
-  // const resp = await cloudinaryProvider.download('example.png', {});
-  // const resp = await cloudinaryProvider.delete('poflneqlsbw4jngxdlqe', {});
-  const resp = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', {});
-  console.log(resp, "dxbvdbv")
+  const resp1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
+  const resp2 = await cloudinaryProvider.download('example.png', {});
+  const resp3 = await cloudinaryProvider.list({});
+  const resp5 = await cloudinaryProvider.delete('poflneqlsbw4jngxdlqe', {});
+  const resp6 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', {});
+  console.log(resp1)
 
 
   // upload file
-  // await s3Provider.upload(fileBuffer, 'example3.png', {ContentType: 'image/png'} );
+  await s3Provider.upload(fileBuffer, 'example3.png', {ContentType: 'image/png'} );
   // donwload file
-  // await s3Provider.download("example1.png", {})
+  await s3Provider.download("example1.png", {})
   // delete object
-  // await s3Provider.delete('example.png',{})
+  await s3Provider.delete('example.png',{})
   // list objects
-  // await s3Provider.list({MaxKeys:5, ContinuationToken: '1b4ViI+EYgDvXxdaK30ya/sI81DnWHqe4pBcOXa8pNjWLMCw2wiSqcK6bqEH3vefogpbpYtsCYrjMRUtI7VvQ7jWA2iEMZTkttlr2/OZv0Ok='})
+  await s3Provider.list({MaxKeys:5, ContinuationToken: '1b4ViI+EYgDvXxdaK30ya/sI81DnWHqe4pBcOXa8pNjWLMCw2wiSqcK6bqEH3vefogpbpYtsCYrjMRUtI7VvQ7jWA2iEMZTkttlr2/OZv0Ok='})
   // get single object
-  // s3Provider.getUrl('example1.png', {expiresIn: 60 * 1})
+  s3Provider.getUrl('example1.png', {expiresIn: 60 * 1})
 })();
