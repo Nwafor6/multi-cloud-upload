@@ -2,6 +2,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { StorageFactory } from './StorageFactory';
+import * as dotenv from 'dotenv';
+dotenv.config(); // Load environment variables
 
 
 // Load configurations from environment variables
@@ -38,22 +40,24 @@ console.log(fileBuffer, "sdfnjbfdvbfd");
 // Now you can use either provider with the same interface
 (async () => {
   // upload
-  const resp1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
-  const resp2 = await cloudinaryProvider.download('example.png', {});
-  const resp3 = await cloudinaryProvider.list({});
-  const resp5 = await cloudinaryProvider.delete('poflneqlsbw4jngxdlqe', {});
-  const resp6 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', {});
-  console.log(resp1)
+  // const resp1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
+  // const resp2 = await cloudinaryProvider.download('example.png', {});
+  // const resp3 = await cloudinaryProvider.list({});
+  // const resp4 = await cloudinaryProvider.delete('example.png', {});
+  // const resp5 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', {});
+  // console.log(resp3)
 
 
   // upload file
-  await s3Provider.upload(fileBuffer, 'example3.png', {ContentType: 'image/png'} );
+  // const resp1 = await s3Provider.upload(fileBuffer, 'examplex.png', {ContentType: 'image/png'} );
   // donwload file
-  await s3Provider.download("example1.png", {})
-  // delete object
-  await s3Provider.delete('example.png',{})
-  // list objects
-  await s3Provider.list({MaxKeys:5, ContinuationToken: '1b4ViI+EYgDvXxdaK30ya/sI81DnWHqe4pBcOXa8pNjWLMCw2wiSqcK6bqEH3vefogpbpYtsCYrjMRUtI7VvQ7jWA2iEMZTkttlr2/OZv0Ok='})
-  // get single object
-  s3Provider.getUrl('example1.png', {expiresIn: 60 * 1})
+  // const resp2 = await s3Provider.download("examplex.png", {})
+  // // delete object
+  // const resp3 = await s3Provider.delete('examplex.png',{})
+  // // list objects
+  // const resp4 = await s3Provider.list({MaxKeys:5, ContinuationToken: '1b4ViI+EYgDvXxdaK30ya/sI81DnWHqe4pBcOXa8pNjWLMCw2wiSqcK6bqEH3vefogpbpYtsCYrjMRUtI7VvQ7jWA2iEMZTkttlr2/OZv0Ok='})
+  // // get single object
+  // const resp5 = s3Provider.getUrl('examplex.png', {expiresIn: 60 * 1})
+
+  // console.log(resp3)
 })();

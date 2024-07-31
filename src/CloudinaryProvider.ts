@@ -1,12 +1,8 @@
-import { v2 as cloudinary } from 'cloudinary';
+import { ConfigOptions, v2 as cloudinary } from 'cloudinary';
 import { StorageProvider } from './StorageProvider';
 
 export class CloudinaryProvider implements StorageProvider {
-  constructor(config: {
-    cloud_name: string;
-    api_key: string;
-    api_secret: string;
-  }) {
+  constructor(config: ConfigOptions) {
     cloudinary.config(config);
   }
 

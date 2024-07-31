@@ -24,92 +24,105 @@ export class S3Provider implements StorageProvider {
   }
 
   /**
-   * Uploads a file to the storage provider.
+   * Uploads a file to the S3 bucket.
    * @param file - The file data as a Buffer.
    * @param fileName - The name of the file to be uploaded.
    * @param context - Additional context or metadata related to the upload.
-   * @returns A Promise that resolves to the file name of the uploaded file.
-   * @see {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/PutObjectCommand/}
+   * @returns A Promise that resolves to the data returned by the S3 service.
    */
   async upload(file: Buffer, fileName: string, context: object = {}): Promise<any> {
-    const command = new PutObjectCommand({
-      Bucket: this.bucket,
-      Key: fileName,
-      Body: file,
-      ...context
-    });
-    const data = await this.s3.send(command);
-    console.log(fileName, data, "upload result");
-    return fileName;
+    try {
+      const command = new PutObjectCommand({
+        Bucket: this.bucket,
+        Key: fileName,
+        Body: file,
+        ...context
+      });
+      const data = await this.s3.send(command);
+      return data;
+    } catch (error) {
+      console.error('Error uploading file:', error);
+      throw error; // Re-throw the error for the caller to handle
+    }
   }
 
   /**
-   * Downloads a file from the storage provider.
+   * Downloads a file from the S3 bucket.
    * @param fileName - The name of the file to download.
    * @param context - Additional context or metadata related to the download.
-   * @returns A Promise that resolves to the file data. The data will be a readable stream for S3.
-   * @see {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/GetObjectCommand/}
+   * @returns A Promise that resolves to the file data, which will be a readable stream for S3.
    */
   async download(fileName: string, context: object = {}): Promise<any> {
-    const command = new GetObjectCommand({
-      Bucket: this.bucket,
-      Key: fileName,
-      ...context
-    });
-    const data = await this.s3.send(command);
-    console.log(data.Body, "download result");
-    return data;
+    try {
+      const command = new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: fileName,
+        ...context
+      });
+      const data = await this.s3.send(command);
+      return data;
+    } catch (error) {
+      console.error('Error downloading file:', error);
+      throw error; // Re-throw the error for the caller to handle
+    }
   }
 
   /**
-   * Deletes a file from the storage provider.
+   * Deletes a file from the S3 bucket.
    * @param fileName - The name of the file to delete.
    * @param context - Additional context or metadata related to the deletion.
-   * @returns A Promise that resolves to the response data from the delete operation.
-   * @see {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/DeleteObjectCommand/}
+   * @returns A Promise that resolves to the data returned by the S3 service after the delete operation.
    */
   async delete(fileName: string, context: object = {}): Promise<any> {
-    const command = new DeleteObjectCommand({
-      Bucket: this.bucket,
-      Key: fileName,
-      ...context
-    });
-    const data = await this.s3.send(command);
-    console.log(data, "delete result");
-    return data;
+    try {
+      const command = new DeleteObjectCommand({
+        Bucket: this.bucket,
+        Key: fileName,
+        ...context
+      });
+      const data = await this.s3.send(command);
+      console.log(data, "delete result");
+      return data;
+    } catch (error) {
+      console.error('Error deleting file:', error);
+      throw error; // Re-throw the error for the caller to handle
+    }
   }
 
   /**
-   * Lists all files in the storage provider's bucket.
+   * Lists all files in the S3 bucket.
    * @param context - Additional context or metadata related to the list operation.
-   * @returns A Promise that resolves to an array of file names.
-   * @see {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3/command/ListObjectsV2Command/}
+   * @returns A Promise that resolves to an array of file names in the bucket.
    */
   async list(context: object = {}): Promise<string[]> {
-    const command = new ListObjectsV2Command({
-      Bucket: this.bucket,
-      ...context
-    });
-    const data = await this.s3.send(command);
-    console.log(data, "list result");
-    return data.Contents?.map(object => object.Key as string) || [];
+    try {
+      const command = new ListObjectsV2Command({
+        Bucket: this.bucket,
+        ...context
+      });
+      const data = await this.s3.send(command);
+      return data.Contents?.map(object => object.Key as string) || [];
+    } catch (error) {
+      console.error('Error listing files:', error);
+      throw error; // Re-throw the error for the caller to handle
+    }
   }
 
   /**
-   * Generates a pre-signed URL for accessing a file.
+   * Generates a pre-signed URL for accessing a file in the S3 bucket.
    * @param fileName - The name of the file for which to generate the URL.
    * @param context - Additional context or metadata related to the URL generation. Can include an expiration time (`expiresIn`).
    * @returns A Promise that resolves to the pre-signed URL.
-   * @see {@link https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/client/s3-request-presigner/getSignedUrl.html}
    */
   async getUrl(fileName: string, context: { expiresIn?: number } = {}): Promise<string> {
-    const command = new GetObjectCommand({
-      Bucket: this.bucket,
-      Key: fileName,
-      ...context,
-    });
-    const expiresIn = context.expiresIn || 60 * 5; // Default to 5 minutes
     try {
+      const command = new GetObjectCommand({
+        Bucket: this.bucket,
+        Key: fileName,
+        ...context,
+      });
+      const expiresIn = context.expiresIn || 60 * 5; // Default to 5 minutes
+
       // Generate a pre-signed URL with the specified expiration time
       const url = await getSignedUrl(this.s3, command, { expiresIn });
       console.log(url, "get url only");
