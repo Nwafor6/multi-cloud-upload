@@ -167,8 +167,6 @@ const s3Provider = StorageFactory.createProvider('s3', s3Config);
 const filePath = path.join(__dirname, 'test.png');
 const fileBuffer = fs.readFileSync(filePath);
 
-console.log(fileBuffer, "sdfnjbfdvbfd");
-
 // Now you can use either provider with the same interface
 (async () => {
   let context = {}
