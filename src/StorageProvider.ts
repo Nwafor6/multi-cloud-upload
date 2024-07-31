@@ -6,7 +6,7 @@ export interface StorageProvider {
    * @param context - Additional context or metadata related to the upload.
    * @returns A Promise that resolves to the URL or identifier of the uploaded file.
    */
-  upload(file: Buffer, fileName: string, context: object): Promise<string>;
+  upload(file: Buffer, fileName: string, context: object): Promise<any>;
 
   /**
    * Downloads a file from the storage provider.
@@ -36,5 +36,5 @@ export interface StorageProvider {
    * @param context - Additional context or metadata related to the file.
    * @returns The URL or identifier of the file.
    */
-  getUrl(fileName: string, context: object): Promise<any>;
+  getUrl(fileName: string, context: object): Promise<string>;
 }

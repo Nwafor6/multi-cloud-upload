@@ -177,3 +177,6 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 This README provides a comprehensive overview of the package, including installation, usage, configuration, and API details. You can adjust the details based on your specific implementation and needs.
+
+<!-- npx ts-node src/index.ts
+ -->

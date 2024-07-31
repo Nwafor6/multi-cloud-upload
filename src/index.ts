@@ -8,11 +8,11 @@ const secretAccessKey= "REMOVED"
 const region="eu-north-1"
 const bucket = "REMOVED"
 
-// const cloudinaryConfig = {
-//   cloud_name: 'your_cloud_name',
-//   api_key: 'your_api_key',
-//   api_secret: 'your_api_secret',
-// };
+const cloudinaryConfig = {
+  cloud_name: 'dnlqkbz0n',
+  api_key: '729962789145329',
+  api_secret: 'xtNmis1y3P1uaL0WwC-W5m2zc70',
+};
 
 const s3Config = {
   accessKeyId: accessKeyId,
@@ -22,8 +22,8 @@ const s3Config = {
 
 };
 
-// const cloudinaryProvider = StorageFactory.createProvider('cloudinary', cloudinaryConfig);
-const s3Provider = StorageFactory.createProvider('s3', s3Config);
+const cloudinaryProvider = StorageFactory.createProvider('cloudinary', cloudinaryConfig);
+// const s3Provider = StorageFactory.createProvider('s3', s3Config);
 
 // // Define fileBuffer as a Buffer object or any other type that represents the file data
 // const fileBuffer = Buffer.from('test.png');
@@ -35,7 +35,15 @@ console.log(fileBuffer, "sdfnjbfdvbfd");
 
 // Now you can use either provider with the same interface
 (async () => {
-  // await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
+  // upload
+  // const resp = await cloudinaryProvider.upload(fileBuffer, 'example.png', {});
+  // const resp = await cloudinaryProvider.download('example.png', {});
+  // const resp = await cloudinaryProvider.list({});
+  // const resp = await cloudinaryProvider.download('example.png', {});
+  // const resp = await cloudinaryProvider.delete('poflneqlsbw4jngxdlqe', {});
+  const resp = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', {});
+  console.log(resp, "dxbvdbv")
+
 
   // upload file
   // await s3Provider.upload(fileBuffer, 'example3.png', {ContentType: 'image/png'} );
