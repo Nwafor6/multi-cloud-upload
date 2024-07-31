@@ -232,28 +232,28 @@ const s3Config = {
 
 The `StorageProvider` class provides a common interface for uploading, downloading, listing, getUrl and deleting files.
 
-#### `upload(file: Buffer, fileName: string, options?: any): Promise<any>`
+#### `upload(file: Buffer, fileName: string, context: object={}): Promise<any>`
 
 - **file**: The file to be uploaded as a `Buffer`.
 - **fileName**: The name to save the file under.
 - **options**: Optional parameters for the upload.
 
-#### `download(fileName: string, options?: any): Promise<any>`
+#### `download(fileName: string, context:  object={}): Promise<any>`
 
 - **fileName**: The name of the file to be downloaded.
 - **options**: Optional parameters for the download.
 
-#### `delete(fileName: string, options?: any): Promise<any>`
+#### `delete(fileName: string, context:  object={}): Promise<any>`
 
 - **fileName**: The name of the file to be deleted.
 - **options**: Optional parameters for the delete operation.
 
-#### `list(options?: any): Promise<string[]>`
+#### `list(context:  object={}): Promise<string[]>`
 
 - **options**: Optional parameters for listing files.
 - **Returns**: A Promise that resolves to an array of file names.
 
-#### `getUrl(fileName: string, options?: { expiresIn?: number }): Promise<string>`
+#### `getUrl(fileName: string, context:  object={}): Promise<string>`
 
 - **fileName**: The name of the file for which to generate the URL.
 - **options**: Optional parameters, including expiration time (`expiresIn`).
@@ -263,23 +263,23 @@ The `StorageProvider` class provides a common interface for uploading, downloadi
 
 The `CloudinaryProvider` class implements the `StorageProvider` interface for Cloudinary.
 
-#### `upload(file: Buffer, fileName: string, options?: any): Promise<any>`
+#### `upload(file: Buffer, fileName: string, context:  object={}): Promise<any>`
 
 Uploads a file to Cloudinary.
 
-#### `download(fileName: string, options?: any): Promise<any>`
+#### `download(fileName: string, context:  object={}): Promise<any>`
 
 Downloads a file from Cloudinary.
 
-#### `delete(fileName: string, options?: any): Promise<any>`
+#### `delete(fileName: string, context:  object={}): Promise<any>`
 
 Deletes a file from Cloudinary.
 
-#### `list(options?: any): Promise<string[]>`
+#### `list(context:  object={}): Promise<string[]>`
 
 Lists files from Cloudinary.
 
-#### `getUrl(fileName: string, options?: { expiresIn?: number }): Promise<string>`
+#### `getUrl(fileName: string, context: object={}): Promise<string>`
 
 Generates a URL for accessing a file in Cloudinary.
 
@@ -287,23 +287,23 @@ Generates a URL for accessing a file in Cloudinary.
 
 The `S3Provider` class implements the `StorageProvider` interface for AWS S3.
 
-#### `upload(file: Buffer, fileName: string, options?: any): Promise<any>`
+#### `upload(file: Buffer, fileName: string, context:  object={}): Promise<any>`
 
 Uploads a file to an S3 bucket.
 
-#### `download(fileName: string, options?: any): Promise<any>`
+#### `download(fileName: string, context:  object={}): Promise<any>`
 
 Downloads a file from an S3 bucket.
 
-#### `delete(fileName: string, options?: any): Promise<any>`
+#### `delete(fileName: string, context:  object={}): Promise<any>`
 
 Deletes a file from an S3 bucket.
 
-#### `list(options?: any): Promise<string[]>`
+#### `list(context:  object={}): Promise<string[]>`
 
 Lists files from an S3 bucket.
 
-#### `getUrl(fileName: string, options?: { expiresIn?: number }): Promise<string>`
+#### `getUrl(fileName: string, context:  object={}): Promise<string>`
 
 Generates a pre-signed URL for accessing a file in an S3 bucket.
 
