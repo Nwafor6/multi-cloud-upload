@@ -1,7 +1,7 @@
 
 ---
 
-# Multi-Cloud Uploader
+# multi-cloud-upload
 
 A Node.js package that provides an easy interface to upload and manage files on both Cloudinary and AWS S3. This package supports both JavaScript and TypeScript projects, making it versatile and easy to integrate into various environments.
 
@@ -25,13 +25,13 @@ A Node.js package that provides an easy interface to upload and manage files on 
 To install the package, use npm or yarn:
 
 ```bash
-npm install multi-cloud-uploader
+npm install multi-cloud-upload
 ```
 
 or
 
 ```bash
-yarn add multi-cloud-uploader
+yarn add multi-cloud-upload
 ```
 
 ## Features
@@ -46,7 +46,7 @@ yarn add multi-cloud-uploader
 
 ```javascript
 
-const {StorageFactory} = require ("multi-cloud-uploader")
+const {StorageFactory} = require ("multi-cloud-upload")
 const fs = require("fs")
 const path = require("path")
 require("dotenv").config();
@@ -117,7 +117,7 @@ console.log(fileBuffer, "sdfnjbfdvbfd");
 ```typescript
 
 // Usage example
-import {StorageFactory} from "multi-cloud-uploader"
+import {StorageFactory} from "multi-cloud-upload"
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
