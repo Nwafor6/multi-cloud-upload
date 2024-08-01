@@ -1,6 +1,6 @@
 {
   "name": "multi-cloud-uploader",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A Node.js package that provides an easy interface to upload and manage files on both Cloudinary and AWS S3. This package supports both JavaScript and TypeScript projects, making it versatile and easy to integrate into various environments.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
