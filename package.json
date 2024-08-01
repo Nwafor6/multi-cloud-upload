@@ -1,6 +1,6 @@
 {
-  "name": "multi-cloud-uploader",
-  "version": "0.0.1",
+  "name": "multi-cloud-upload",
+  "version": "0.0.0",
   "description": "A Node.js package that provides an easy interface to upload and manage files on both Cloudinary and AWS S3. This package supports both JavaScript and TypeScript projects, making it versatile and easy to integrate into various environments.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -36,11 +36,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Nwafor6/Multi-Cloud-Uploader.git"
+    "url": "https://github.com/Nwafor6/multi-cloud-upload.git"
   },
   "author": {
     "name": "Nwafor Glor",
-    "url": "https://github.com/Nwafor6/Multi-Cloud-Uploader.git"
+    "url": "https://github.com/Nwafor6/multi-cloud-upload.git"
   },
   "license": "MIT",
   "dependencies": {
