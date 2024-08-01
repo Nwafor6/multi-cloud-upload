@@ -46,7 +46,9 @@ yarn add multi-cloud-uploader
 
 ```javascript
 
-const StorageFactory = require('multi-cloud-uploader/StorageFactory');
+const {StorageFactory} = require ("multi-cloud-uploader")
+const fs = require("fs")
+const path = require("path")
 require("dotenv").config();
 
 // Load configurations from environment variables
@@ -59,6 +61,7 @@ const cloudinaryConfig = {
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
   api_key: process.env.CLOUDINARY_API_KEY || '',
   api_secret: process.env.CLOUDINARY_API_SECRET || '',
+  // additional params can go in here.
 };
 
 
@@ -73,57 +76,40 @@ const s3Config = {
 const cloudinaryProvider = StorageFactory.createProvider('cloudinary', cloudinaryConfig);
 const s3Provider = StorageFactory.createProvider('s3', s3Config);
 
-
 // Read the actual image file into a buffer
 const filePath = path.join(__dirname, 'test.png');
 const fileBuffer = fs.readFileSync(filePath);
 
 console.log(fileBuffer, "sdfnjbfdvbfd");
 
+
 // Now you can use either provider with the same interface
 (async () => {
-  let context = {}
-  // upload
-  const resp1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', context);
-  const resp2 = await cloudinaryProvider.download('example.png', context);
-  const resp3 = await cloudinaryProvider.list(context);
-  const resp4 = await cloudinaryProvider.delete('example.png', context);
-  const resp5 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', context);
-  console.log(resp3)
+    let context = {}
+    // upload
+    const example1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', context);
+    const example2 = await cloudinaryProvider.download('example.png', context);
+    const example3 = await cloudinaryProvider.list(context);
+    const example4 = await cloudinaryProvider.delete('example.png', context);
+    const example5 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', context);
+  
+  
+    // // upload file
+    const example6 = await s3Provider.upload(fileBuffer, 'examplex.png', {ContentType: 'image/png'} );
+    // donwload file
+    const example7 = await s3Provider.download("examplex.png", context)
+    // delete object
+    const example8 = await s3Provider.delete('examplex.png',context)
+    // list objects
+    context = {MaxKeys:5, ContinuationToken: 'xyz'}
+    const example9 = await s3Provider.list(context)
+    // get single object
+    context = {expiresIn: 60 * 1}
+    const example10 = s3Provider.getUrl('examplex.png', context)
+  
 
-
-  // upload file
-  const respa = await s3Provider.upload(fileBuffer, 'examplex.png', {ContentType: 'image/png'} );
-  // donwload file
-  const respb = await s3Provider.download("examplex.png", context)
-  // delete object
-  const respc = await s3Provider.delete('examplex.png',context)
-  // list objects
-  context = {MaxKeys:5, ContinuationToken: 'xyz'}
-  const respd = await s3Provider.list(context)
-  // get single object
-  context = {expiresIn: 60 * 1}
-  const respE = s3Provider.getUrl('examplex.png', context)
-
-  // console.log(resp3)
 })()
-
-
-// Cloudinary usage
-const cloudinaryUploader = new CloudinaryUploader();
-const uploader = new FileUploader(cloudinaryUploader);
-
-uploader.upload(buffer, options)
-  .then(url => console.log('Uploaded to Cloudinary:', url))
-  .catch(err => console.error('Error uploading to Cloudinary:', err));
-
-// AWS S3 usage
-const s3Uploader = new S3Uploader();
-const uploader = new FileUploader(s3Uploader);
-
-uploader.upload(buffer, options)
-  .then(url => console.log('Uploaded to S3:', url))
-  .catch(err => console.error('Error uploading to S3:', err));
+  
 ```
 
 ### TypeScript
@@ -131,12 +117,11 @@ uploader.upload(buffer, options)
 ```typescript
 
 // Usage example
+import {StorageFactory} from "multi-cloud-uploader"
+import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
-import { StorageFactory } from 'multi-cloud-uploader/StorageFactory';
-import * as dotenv from 'dotenv';
-dotenv.config(); // Load environment variables
-
+dotenv.config(); 
 
 // Load configurations from environment variables
 const accessKeyId = process.env.AWS_ACCESS_KEY_ID || '';
@@ -150,18 +135,16 @@ const cloudinaryConfig = {
   api_secret: process.env.CLOUDINARY_API_SECRET || '',
 };
 
-
 const s3Config = {
-  accessKeyId: accessKeyId,
-  secretAccessKey: secretAccessKey,
-  region: region,
-  bucket: bucket,
-
-};
+    accessKeyId: accessKeyId,
+    secretAccessKey: secretAccessKey,
+    region: region,
+    bucket: bucket,
+  
+  };
 
 const cloudinaryProvider = StorageFactory.createProvider('cloudinary', cloudinaryConfig);
 const s3Provider = StorageFactory.createProvider('s3', s3Config);
-
 
 // Read the actual image file into a buffer
 const filePath = path.join(__dirname, 'test.png');
@@ -169,30 +152,30 @@ const fileBuffer = fs.readFileSync(filePath);
 
 // Now you can use either provider with the same interface
 (async () => {
-  let context = {}
-  // upload
-  const resp1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', context);
-  const resp2 = await cloudinaryProvider.download('example.png', context);
-  const resp3 = await cloudinaryProvider.list(context);
-  const resp4 = await cloudinaryProvider.delete('example.png', context);
-  const resp5 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', context);
-  console.log(resp3)
+    let context = {}
+    // upload
+    const example1 = await cloudinaryProvider.upload(fileBuffer, 'example.png', context);
+    const example2 = await cloudinaryProvider.download('example.png', context);
+    const example3 = await cloudinaryProvider.list(context);
+    const example4 = await cloudinaryProvider.delete('example.png', context);
+    const example5 = await cloudinaryProvider.getUrl('gccyckcnbpcy5vx8gjyd', context);
+  
+  
+    // // upload file
+    const example6 = await s3Provider.upload(fileBuffer, 'examplex.png', {ContentType: 'image/png'} );
+    // donwload file
+    const example7 = await s3Provider.download("examplex.png", context)
+    // delete object
+    const example8 = await s3Provider.delete('examplex.png',context)
+    // list objects
+    context = {MaxKeys:5, ContinuationToken: 'xyz'}
+    const example9 = await s3Provider.list(context)
+    // get single object
+    context = {expiresIn: 60 * 1}
+    const example10 = s3Provider.getUrl('examplex.png', context)
+  
 
-
-  // upload file
-  const respa = await s3Provider.upload(fileBuffer, 'examplex.png', {ContentType: 'image/png'} );
-  // donwload file
-  const respb = await s3Provider.download("examplex.png", context)
-  // delete object
-  const respc = await s3Provider.delete('examplex.png',context)
-  // list objects
-  const respd = await s3Provider.list({MaxKeys:5, ContinuationToken: 'xyz'})
-  // get single object
-  context = {expiresIn: 60 * 1}
-  const respE = s3Provider.getUrl('examplex.png', context)
-
-  // console.log(resp3)
-})();
+})()
 ```
 
 ## Configuration
@@ -209,6 +192,7 @@ const cloudinaryConfig = {
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME || '',
   api_key: process.env.CLOUDINARY_API_KEY || '',
   api_secret: process.env.CLOUDINARY_API_SECRET || '',
+  // more params can go in here
 };
 ```
 
@@ -256,7 +240,7 @@ The `StorageProvider` class provides a common interface for uploading, downloadi
 #### `getUrl(fileName: string, context:  object={}): Promise<string>`
 
 - **fileName**: The name of the file for which to generate the URL.
-- **options**: Optional parameters, including expiration time (`expiresIn`).
+- **options**: Optional parameters.
 - **Returns**: A Promise that resolves to the pre-signed URL.
 
 ### CloudinaryProvider

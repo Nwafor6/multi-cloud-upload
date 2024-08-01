@@ -1,19 +1,51 @@
 {
   "name": "multi-cloud-uploader",
-  "version": "1.0.0",
-  "description": "Certainly! Here's a detailed README template for your project:",
-  "main": "index.js",
+  "version": "0.0.0",
+  "description": "A Node.js package that provides an easy interface to upload and manage files on both Cloudinary and AWS S3. This package supports both JavaScript and TypeScript projects, making it versatile and easy to integrate into various environments.",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsup",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "file-upload",
+    "file-storage",
+    "cloud-storage",
+    "aws-s3",
+    "cloudinary",
+    "upload",
+    "download",
+    "file-management",
+    "storage-provider",
+    "file-deletion",
+    "file-listing",
+    "url-generation",
+    "pre-signed-url",
+    "nodejs-storage",
+    "typescript-storage",
+    "buffer-upload",
+    "file-access",
+    "cloudinary-uploader",
+    "s3-uploader",
+    "storage-interface",
+    "file-streams",
+    "storage-api",
+    "cloud-file-management"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nwafor6/Multi-Cloud-Uploader.git"
+  },
+  "author": {
+    "name": "Nwafor Glor",
+    "url": "https://github.com/Nwafor6/Multi-Cloud-Uploader.git"
+  },
+  "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.621.0",
     "@aws-sdk/s3-request-presigner": "^3.621.0",
-    "aws-sdk": "^2.1664.0",
     "cloudinary": "^2.4.0",
     "dotenv": "^16.4.5"
   },
@@ -21,6 +53,7 @@
     "@types/node": "^22.0.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
+    "tsup": "^8.2.3",
     "typescript": "^5.5.4"
   }
 }
